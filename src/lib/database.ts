@@ -22,15 +22,13 @@ export interface Course {
 
 // (Other interfaces like CourseModule, Enrollment, etc. stay the same as your original — keep those)
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'YOUR_SUPABASE_URL';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY';
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  throw new Error("❌ Supabase environment variables are missing.");
+}
 
-if (!supabaseUrl || supabaseUrl === 'YOUR_SUPABASE_URL') {
-  console.warn('Supabase URL is not configured. Please set NEXT_PUBLIC_SUPABASE_URL');
-}
-if (!supabaseAnonKey || supabaseAnonKey === 'YOUR_SUPABASE_ANON_KEY') {
-  console.warn('Supabase Anon Key is not configured. Please set NEXT_PUBLIC_SUPABASE_ANON_KEY');
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
 
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
